@@ -18,10 +18,13 @@ cat CLAUDE.md                                    # Development guide for Claude 
 cat docs/plans/README.md                         # Implementation plan index
 cat docs/patterns/16-Pattern-Integration-Guide.md  # Architecture patterns
 
-# Set up local environment (coming in Sprint 1)
+# Install dependencies
+npm install
+
+# Set up local environment
 docker-compose up -d      # Start PostgreSQL + Redis
-cp .env.example .env.local
-# Edit .env.local with your API keys
+cp apps/api/.env.example apps/api/.env
+# Edit apps/api/.env with your database URL
 
 # Run the backend (Rust)
 cd apps/api && cargo run
@@ -68,7 +71,7 @@ Original research and design documents:
 ### **Sprints** (`/docs/sprints/`)
 Detailed sprint documents with task breakdowns:
 - `TEMPLATE.md` - Sprint document template
-- `sprint-1-foundation.md` - First sprint (coming soon)
+- `sprint-1-foundation.md` - Database, domain layer, and auth (5 user stories, 180+ tasks)
 
 ---
 
@@ -131,7 +134,7 @@ Detailed sprint documents with task breakdowns:
 | Layer | Technology | Purpose |
 |-------|-----------|---------|
 | **Backend** | Rust + Axum + Tokio | Type-safe, performant, async-first API |
-| **Frontend** | Next.js 14 + React 18 | SSR, streaming, server components |
+| **Frontend** | Next.js 15 + React 19 | SSR, streaming, server components |
 | **Database** | PostgreSQL + pgvector | ACID + semantic search for caching |
 | **Cache/Queue** | Redis (Streams + Pub/Sub) | Task queues + real-time updates |
 | **AI Models** | Claude 3.5 Sonnet + GPT-4 | Manager agents + worker agents |

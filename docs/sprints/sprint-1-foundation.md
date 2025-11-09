@@ -40,6 +40,7 @@
 | US-105: JWT Authentication          | 0/25 (0%)      | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ | 🔴 Not Started | -        | None     |
 
 **Status Legend:**
+
 - 🔴 Not Started (0%)
 - 🟡 In Progress (1-99%)
 - 🟢 Complete (100%)
@@ -55,6 +56,7 @@
 Enable team creation with database persistence and secure user authentication.
 
 At the end of this sprint, the system will:
+
 - Store teams, users, tasks, and messages in PostgreSQL
 - Expose REST API endpoints for team management
 - Authenticate users via JWT tokens with 8-hour expiry
@@ -63,6 +65,7 @@ At the end of this sprint, the system will:
 ### Success Metrics
 
 **Technical Metrics:**
+
 - [ ] All 5 user stories completed and tested
 - [ ] API response time < 200ms (P95)
 - [ ] Zero critical bugs in staging
@@ -70,11 +73,13 @@ At the end of this sprint, the system will:
 - [ ] All CI/CD pipelines passing
 
 **Business Metrics:**
+
 - [ ] Database schema supports multi-tenant isolation
 - [ ] API documented with OpenAPI spec
 - [ ] Authentication flow tested end-to-end
 
 **Quality Metrics:**
+
 - [ ] Code follows Hexagonal Architecture pattern
 - [ ] Domain models use DDD principles (entities, value objects)
 - [ ] Security scan passes (zero high/critical vulnerabilities)
@@ -89,6 +94,7 @@ At the end of this sprint, the system will:
 ### Sprint Dependencies
 
 **This sprint depends on:**
+
 - [ ] PostgreSQL 16+ database accessible (local or Azure)
 - [ ] Redis instance running (for future caching)
 - [ ] Azure account configured (if using Azure PostgreSQL)
@@ -96,6 +102,7 @@ At the end of this sprint, the system will:
 ### Development Environment Setup
 
 **Required Tools:**
+
 - [ ] Rust 1.75+ installed (`rustc --version` shows 1.75.0 or higher)
 - [ ] PostgreSQL client tools (`psql --version` shows 16.0 or higher)
 - [ ] SQLx CLI installed (`cargo install sqlx-cli --features postgres`)
@@ -174,12 +181,14 @@ psql $DATABASE_URL -c "SELECT version();"
 ## 📚 Key References
 
 ### Technical Documentation
+
 - **Architecture:** [Hexagonal Architecture Pattern](../patterns/03-Hexagonal-Architecture.md)
 - **Patterns Used:** [Pattern Catalog](../patterns/16-Pattern-Integration-Guide.md)
 - **API Framework:** [Axum Web Framework Docs](https://docs.rs/axum/latest/axum/)
 - **Database:** [SQLx Documentation](https://docs.rs/sqlx/latest/sqlx/)
 
 ### Research Documents
+
 - [Phase 1: Foundation](../plans/04-phase-1-foundation.md) - Detailed implementation plan
 - [Database Architecture](../plans/03-database-architecture.md) - Schema design
 - [Technology Stack](../plans/01-technology-stack.md) - Tech decisions
@@ -197,6 +206,7 @@ psql $DATABASE_URL -c "SELECT version();"
 **Business Value:** Foundation for all data storage, enables multi-tenant isolation and audit trails
 
 **Acceptance Criteria:**
+
 - [ ] All 8 core tables created (companies, users, teams, team_members, tasks, messages, checkpoints, cost_tracking)
 - [ ] Indexes created for performance on foreign keys and commonly queried fields
 - [ ] Migrations are reversible (both up and down migrations work)
@@ -206,11 +216,13 @@ psql $DATABASE_URL -c "SELECT version();"
 **Technical Implementation:**
 
 **Patterns Used:**
+
 - [x] Multi-Tenancy Pattern (company_id for isolation)
 - [x] Soft Delete Pattern (future: deleted_at timestamps)
 - [x] Audit Trail Pattern (created_at, updated_at timestamps)
 
 **File Structure:**
+
 ```
 apps/api/
 ├── migrations/
@@ -240,6 +252,7 @@ apps/api/
 - [ ] **101.2** - Add SQLx dependencies to Cargo.toml
   - **File:** `Cargo.toml`
   - **Code:**
+
     ```toml
     [dependencies]
     axum = "0.7"
@@ -253,6 +266,7 @@ apps/api/
     tracing-subscriber = "0.3"
     dotenv = "0.15"
     ```
+
   - **Validation:** `cargo check` passes
   - **Estimate:** 5 minutes
 
@@ -270,6 +284,7 @@ apps/api/
   - **Command:** `sqlx migrate add create_companies_table`
   - **File:** `migrations/XXXXXX_create_companies_table.sql`
   - **Code:**
+
     ```sql
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -282,12 +297,14 @@ apps/api/
 
     CREATE INDEX idx_companies_created_at ON companies(created_at);
     ```
+
   - **Validation:** File created in migrations/
   - **Estimate:** 10 minutes
 
 - [ ] **101.6** - Create users table migration
   - **Command:** `sqlx migrate add create_users_table`
   - **Code:**
+
     ```sql
     CREATE TABLE users (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -305,11 +322,13 @@ apps/api/
     CREATE INDEX idx_users_company_id ON users(company_id);
     CREATE INDEX idx_users_active ON users(is_active) WHERE is_active = true;
     ```
+
   - **Estimate:** 15 minutes
 
 - [ ] **101.7** - Create teams table migration
   - **Command:** `sqlx migrate add create_teams_table`
   - **Code:**
+
     ```sql
     CREATE TYPE team_status AS ENUM (
         'pending', 'planning', 'active', 'completed', 'failed', 'archived'
@@ -335,6 +354,7 @@ apps/api/
     CREATE INDEX idx_teams_created_by ON teams(created_by);
     CREATE INDEX idx_teams_created_at ON teams(created_at DESC);
     ```
+
   - **Estimate:** 20 minutes
 
 - [ ] **101.8** - Create remaining tables (team_members, tasks, messages, checkpoints, cost_tracking)
@@ -350,12 +370,14 @@ apps/api/
 
 - [ ] **101.10** - Verify schema with sample data
   - **Commands:**
+
     ```sql
     INSERT INTO companies (name) VALUES ('Test Company');
     INSERT INTO users (company_id, email, password_hash, full_name)
     SELECT id, 'test@example.com', 'hash', 'Test User'
     FROM companies WHERE name = 'Test Company';
     ```
+
   - **Validation:** Queries succeed, foreign keys work
   - **Estimate:** 10 minutes
 
@@ -370,6 +392,7 @@ apps/api/
 **Business Value:** Clean architecture, testable business logic, maintainable codebase
 
 **Acceptance Criteria:**
+
 - [ ] Team, User, Task, Message entities created in `src/domain/`
 - [ ] Value objects for Email, TeamStatus, TaskStatus
 - [ ] Domain events for Team created, Task assigned, Task completed
@@ -379,11 +402,13 @@ apps/api/
 **Technical Implementation:**
 
 **Patterns Used:**
+
 - [x] Hexagonal Architecture (domain independent of infrastructure)
 - [x] Domain-Driven Design (entities, value objects, aggregates)
 - [x] Value Object Pattern (immutable, validated types)
 
 **File Structure:**
+
 ```
 src/
 ├── domain/
@@ -411,6 +436,7 @@ src/
 
 - [ ] **102.1** - Create domain module structure
   - **Commands:**
+
     ```bash
     mkdir -p src/domain/{team,user,task}
     touch src/domain/mod.rs
@@ -418,11 +444,13 @@ src/
     touch src/domain/user/{mod.rs,user.rs,value_objects.rs}
     touch src/domain/task/{mod.rs,task.rs,value_objects.rs}
     ```
+
   - **Estimate:** 5 minutes
 
 - [ ] **102.2** - Implement Email value object
   - **File:** `src/domain/user/value_objects.rs`
   - **Code:**
+
     ```rust
     use serde::{Deserialize, Serialize};
     use std::fmt;
@@ -470,11 +498,13 @@ src/
         }
     }
     ```
+
   - **Estimate:** 20 minutes
 
 - [ ] **102.3** - Implement TeamStatus enum
   - **File:** `src/domain/team/value_objects.rs`
   - **Code:**
+
     ```rust
     use serde::{Deserialize, Serialize};
 
@@ -518,11 +548,13 @@ src/
         }
     }
     ```
+
   - **Estimate:** 20 minutes
 
 - [ ] **102.4** - Implement Team entity
   - **File:** `src/domain/team/team.rs`
   - **Code:**
+
     ```rust
     use chrono::{DateTime, Utc};
     use rust_decimal::Decimal;
@@ -630,11 +662,13 @@ src/
         }
     }
     ```
+
   - **Estimate:** 60 minutes
 
 - [ ] **102.5** - Implement domain events
   - **File:** `src/domain/team/events.rs`
   - **Code:**
+
     ```rust
     use uuid::Uuid;
 
@@ -658,6 +692,7 @@ src/
         },
     }
     ```
+
   - **Estimate:** 15 minutes
 
 - [ ] **102.6** - Implement User, Task entities (similar pattern)
@@ -680,6 +715,7 @@ src/
 **Business Value:** Testable code, swappable persistence, clean architecture
 
 **Acceptance Criteria:**
+
 - [ ] Repository trait defined in domain layer
 - [ ] PostgreSQL implementation in infrastructure layer
 - [ ] CRUD operations for Team, User, Task
@@ -687,6 +723,7 @@ src/
 - [ ] Integration tests with test database (≥80% coverage)
 
 **Patterns Used:**
+
 - [x] Repository Pattern (data access abstraction)
 - [x] Hexagonal Architecture (ports and adapters)
 - [x] Dependency Inversion Principle (depend on abstractions)
@@ -700,6 +737,7 @@ src/
 - [ ] **103.1** - Define repository traits in domain
   - **File:** `src/domain/repositories/team_repository.rs`
   - **Code:**
+
     ```rust
     use async_trait::async_trait;
     use uuid::Uuid;
@@ -713,11 +751,13 @@ src/
         async fn delete(&self, id: Uuid) -> Result<(), String>;
     }
     ```
+
   - **Estimate:** 20 minutes
 
 - [ ] **103.2** - Implement PostgreSQL repository
   - **File:** `src/infrastructure/repositories/postgres_team_repository.rs`
   - **Code:**
+
     ```rust
     use async_trait::async_trait;
     use sqlx::PgPool;
@@ -795,6 +835,7 @@ src/
         }
     }
     ```
+
   - **Estimate:** 90 minutes
 
 - [ ] **103.3** - Implement repositories for User, Task, Message
@@ -817,6 +858,7 @@ src/
 **Business Value:** Enables frontend integration, API-first development
 
 **Acceptance Criteria:**
+
 - [ ] Axum server running on port 3000
 - [ ] Health check endpoint `GET /health` returns 200
 - [ ] CORS configured for frontend access
@@ -824,6 +866,7 @@ src/
 - [ ] Request logging with tracing
 
 **Patterns Used:**
+
 - [x] Hexagonal Architecture (controllers as adapters)
 - [x] Dependency Injection (via Axum state)
 
@@ -836,6 +879,7 @@ src/
 - [ ] **104.1** - Create main.rs with Axum server
   - **File:** `src/main.rs`
   - **Code:**
+
     ```rust
     use axum::{Router, routing::get};
     use sqlx::PgPool;
@@ -876,12 +920,14 @@ src/
         "OK"
     }
     ```
+
   - **Validation:** `cargo run` starts server, `curl http://localhost:3000/health` returns "OK"
   - **Estimate:** 30 minutes
 
 - [ ] **104.2** - Add error handling middleware
   - **File:** `src/api/errors.rs`
   - **Code:**
+
     ```rust
     use axum::{
         http::StatusCode,
@@ -912,11 +958,13 @@ src/
         }
     }
     ```
+
   - **Estimate:** 20 minutes
 
 - [ ] **104.3** - Add CORS middleware
   - **Dependencies:** Add `tower-http = { version = "0.5", features = ["cors"] }`
   - **Code in main.rs:**
+
     ```rust
     use tower_http::cors::{CorsLayer, Any};
 
@@ -930,11 +978,13 @@ src/
         .layer(cors)
         .with_state(pool);
     ```
+
   - **Estimate:** 15 minutes
 
 - [ ] **104.4** - Add request logging
   - **Dependencies:** Add `tower-http = { version = "0.5", features = ["trace"] }`
   - **Code:**
+
     ```rust
     use tower_http::trace::TraceLayer;
 
@@ -944,6 +994,7 @@ src/
         .layer(cors)
         .with_state(pool);
     ```
+
   - **Estimate:** 10 minutes
 
 - [ ] **104.5** - Create team endpoints (POST, GET)
@@ -962,6 +1013,7 @@ src/
 **Business Value:** Secure access control, user session management
 
 **Acceptance Criteria:**
+
 - [ ] `POST /api/auth/register` creates new user
 - [ ] `POST /api/auth/login` returns JWT token
 - [ ] Password hashing with bcrypt
@@ -969,6 +1021,7 @@ src/
 - [ ] Tokens expire after 8 hours
 
 **Patterns Used:**
+
 - [x] RBAC Pattern (future: role-based access)
 - [x] Security Best Practices (password hashing, token expiry)
 
@@ -980,15 +1033,18 @@ src/
 
 - [ ] **105.1** - Add authentication dependencies
   - **Cargo.toml:**
+
     ```toml
     bcrypt = "0.15"
     jsonwebtoken = "9.2"
     ```
+
   - **Estimate:** 2 minutes
 
 - [ ] **105.2** - Implement password hashing
   - **File:** `src/auth/password.rs`
   - **Code:**
+
     ```rust
     use bcrypt::{hash, verify, DEFAULT_COST};
 
@@ -1000,11 +1056,13 @@ src/
         verify(password, hash).map_err(|e| e.to_string())
     }
     ```
+
   - **Estimate:** 15 minutes
 
 - [ ] **105.3** - Implement JWT token creation
   - **File:** `src/auth/jwt.rs`
   - **Code:**
+
     ```rust
     use jsonwebtoken::{encode, decode, Header, Validation, EncodingKey, DecodingKey};
     use serde::{Deserialize, Serialize};
@@ -1042,11 +1100,13 @@ src/
         .map_err(|e| e.to_string())
     }
     ```
+
   - **Estimate:** 30 minutes
 
 - [ ] **105.4** - Implement register endpoint
   - **File:** `src/api/handlers/auth.rs`
   - **Code:**
+
     ```rust
     use axum::{Json, extract::State};
     use serde::{Deserialize, Serialize};
@@ -1101,10 +1161,12 @@ src/
         Ok(Json(RegisterResponse { user_id }))
     }
     ```
+
   - **Estimate:** 45 minutes
 
 - [ ] **105.5** - Implement login endpoint
   - **Code:**
+
     ```rust
     #[derive(Deserialize)]
     pub struct LoginRequest {
@@ -1151,6 +1213,7 @@ src/
         Ok(Json(LoginResponse { token }))
     }
     ```
+
   - **Estimate:** 45 minutes
 
 - [ ] **105.6** - Implement JWT validation middleware
@@ -1166,12 +1229,14 @@ src/
 ## 🔗 Cross-Story Integration
 
 **Integration Points:**
+
 - US-101 (Database) provides schema for US-102 (Domain Models)
 - US-102 (Domain) defines interfaces for US-103 (Repositories)
 - US-103 (Repositories) used by US-104 (API handlers)
 - US-105 (Auth) protects endpoints from US-104
 
 **Integration Tests:**
+
 - [ ] Create team via API → Verify in database
 - [ ] Register user → Login → Create team (full flow)
 - [ ] Authentication → Protected endpoint access
@@ -1191,6 +1256,7 @@ src/
 **Open Questions:** None yet
 
 **Decisions Made:**
+
 | Decision | Context | Rationale | Made By | Date |
 |----------|---------|-----------|---------|------|
 | Use SQLx over Diesel | ORM choice | SQLx provides compile-time verification and async support | Team | 2025-11-08 |
@@ -1259,6 +1325,7 @@ src/
 **Velocity:** TBD at sprint end
 
 **Code Quality:**
+
 - **Code Coverage:** TBD (target: ≥80%)
 - **Lines of Code Added:** TBD
 
@@ -1273,6 +1340,7 @@ src/
 3. [ ] Begin Sprint 2 planning (Agent System implementation)
 
 **Handoff to Sprint 2:**
+
 - Database schema ready for agent tables
 - API foundation ready for agent endpoints
 - Authentication ready for user context

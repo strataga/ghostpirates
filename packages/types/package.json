@@ -1,0 +1,14 @@
+{
+  "name": "@ghostpirates/types",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@ghostpirates/tsconfig": "*",
+    "typescript": "^5.7.2"
+  }
+}

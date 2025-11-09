@@ -1,0 +1,8 @@
+// Team domain module
+// Contains team aggregate root, value objects, and domain events
+
+#![allow(clippy::module_inception)]
+
+pub mod events;
+pub mod team;
+pub mod value_objects;

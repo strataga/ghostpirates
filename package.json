@@ -1,0 +1,40 @@
+{
+  "name": "ghostpirates",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "type-check": "turbo run type-check",
+    "api:dev": "cd apps/api && cargo run",
+    "api:test": "cd apps/api && cargo test",
+    "api:build": "cd apps/api && cargo build --release",
+    "api:fmt": "cd apps/api && cargo fmt --check",
+    "api:clippy": "cd apps/api && cargo clippy -- -D warnings",
+    "web:dev": "turbo run dev --filter=web",
+    "web:build": "turbo run build --filter=web",
+    "web:lint": "turbo run lint --filter=web",
+    "check-all": "npm run api:fmt && npm run api:clippy && npm run lint && npm run type-check",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "turbo": "^2.3.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "prettier": "^3.4.2"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "packageManager": "npm@10.20.0"
+}
