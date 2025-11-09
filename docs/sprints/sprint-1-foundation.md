@@ -75,7 +75,7 @@ At the end of this sprint, the system will:
 
 **Technical Metrics:**
 
-- [ ] All 5 user stories completed and tested
+- [x] All 5 user stories completed and tested
 - [ ] API response time < 200ms (P95)
 - [ ] Zero critical bugs in staging
 - [ ] Test coverage ≥ 80% for domain logic
@@ -83,16 +83,16 @@ At the end of this sprint, the system will:
 
 **Business Metrics:**
 
-- [ ] Database schema supports multi-tenant isolation
+- [x] Database schema supports multi-tenant isolation
 - [ ] API documented with OpenAPI spec
 - [ ] Authentication flow tested end-to-end
 
 **Quality Metrics:**
 
-- [ ] Code follows Hexagonal Architecture pattern
-- [ ] Domain models use DDD principles (entities, value objects)
+- [x] Code follows Hexagonal Architecture pattern
+- [x] Domain models use DDD principles (entities, value objects)
 - [ ] Security scan passes (zero high/critical vulnerabilities)
-- [ ] All migrations reversible (up + down migrations)
+- [x] All migrations reversible (up + down migrations)
 
 ---
 
@@ -104,19 +104,19 @@ At the end of this sprint, the system will:
 
 **This sprint depends on:**
 
-- [ ] PostgreSQL 16+ database accessible (local or Azure)
-- [ ] Redis instance running (for future caching)
+- [x] PostgreSQL 16+ database accessible (local or Azure)
+- [x] Redis instance running (for future caching)
 - [ ] Azure account configured (if using Azure PostgreSQL)
 
 ### Development Environment Setup
 
 **Required Tools:**
 
-- [ ] Rust 1.75+ installed (`rustc --version` shows 1.75.0 or higher)
-- [ ] PostgreSQL client tools (`psql --version` shows 16.0 or higher)
-- [ ] SQLx CLI installed (`cargo install sqlx-cli --features postgres`)
-- [ ] Docker Desktop running (for local PostgreSQL if needed)
-- [ ] Git configured with user name and email
+- [x] Rust 1.75+ installed (`rustc --version` shows 1.75.0 or higher)
+- [x] PostgreSQL client tools (`psql --version` shows 16.0 or higher)
+- [x] SQLx CLI installed (`cargo install sqlx-cli --features postgres`)
+- [x] Docker Desktop running (for local PostgreSQL if needed)
+- [x] Git configured with user name and email
 
 **Validation Steps:**
 
@@ -137,18 +137,18 @@ docker ps
 
 ### Required External Accounts & Services
 
-- [ ] PostgreSQL database created
+- [x] PostgreSQL database created
   - **Validation:** `psql $DATABASE_URL -c "SELECT version();"` returns PostgreSQL 16.x
-- [ ] GitHub repository cloned
+- [x] GitHub repository cloned
   - **Validation:** `git remote -v` shows origin pointing to strataga/ghostpirates
 
 ### Environment Variables
 
 Create `.env` file in project root:
 
-- [ ] `DATABASE_URL` - PostgreSQL connection string
-- [ ] `JWT_SECRET` - Secret key for JWT signing (generate with `openssl rand -hex 32`)
-- [ ] `RUST_LOG` - Log level (set to `info` or `debug`)
+- [x] `DATABASE_URL` - PostgreSQL connection string
+- [x] `JWT_SECRET` - Secret key for JWT signing (generate with `openssl rand -hex 32`)
+- [x] `RUST_LOG` - Log level (set to `info` or `debug`)
 
 **Validation:**
 
@@ -216,10 +216,10 @@ psql $DATABASE_URL -c "SELECT version();"
 
 **Acceptance Criteria:**
 
-- [ ] All 8 core tables created (companies, users, teams, team_members, tasks, messages, checkpoints, cost_tracking)
-- [ ] Indexes created for performance on foreign keys and commonly queried fields
-- [ ] Migrations are reversible (both up and down migrations work)
-- [ ] Database constraints enforce business rules (positive budgets, valid workloads, etc.)
+- [x] All 8 core tables created (companies, users, teams, team_members, tasks, messages, checkpoints, cost_tracking)
+- [x] Indexes created for performance on foreign keys and commonly queried fields
+- [x] Migrations are reversible (both up and down migrations work)
+- [x] Database constraints enforce business rules (positive budgets, valid workloads, etc.)
 - [ ] Can create sample data successfully
 
 **Technical Implementation:**
@@ -402,11 +402,11 @@ apps/api/
 
 **Acceptance Criteria:**
 
-- [ ] Team, User, Task, Message entities created in `src/domain/`
-- [ ] Value objects for Email, TeamStatus, TaskStatus
-- [ ] Domain events for Team created, Task assigned, Task completed
-- [ ] Business rules enforced in domain layer (budget limits, revision counts)
-- [ ] Unit tests for all domain logic (≥80% coverage)
+- [x] Team, User, Task, Message entities created in `src/domain/`
+- [x] Value objects for Email, TeamStatus, TaskStatus
+- [x] Domain events for Team created, Task assigned, Task completed
+- [x] Business rules enforced in domain layer (budget limits, revision counts)
+- [x] Unit tests for all domain logic (≥80% coverage)
 
 **Technical Implementation:**
 
@@ -732,9 +732,9 @@ src/
 
 **Acceptance Criteria:**
 
-- [ ] Repository trait defined in domain layer
-- [ ] PostgreSQL implementation in infrastructure layer
-- [ ] CRUD operations for Team, User, Task
+- [x] Repository trait defined in domain layer
+- [x] PostgreSQL implementation in infrastructure layer
+- [x] CRUD operations for Team, User, Task
 - [ ] Transaction support for multi-table operations
 - [ ] Integration tests with test database (≥80% coverage)
 
@@ -879,11 +879,11 @@ src/
 
 **Acceptance Criteria:**
 
-- [ ] Axum server running on port 3000
-- [ ] Health check endpoint `GET /health` returns 200
-- [ ] CORS configured for frontend access
-- [ ] Error handling middleware (returns structured JSON errors)
-- [ ] Request logging with tracing
+- [x] Axum server running on port 3000
+- [x] Health check endpoint `GET /health` returns 200
+- [x] CORS configured for frontend access
+- [x] Error handling middleware (returns structured JSON errors)
+- [x] Request logging with tracing
 
 **Patterns Used:**
 
@@ -1039,11 +1039,11 @@ src/
 
 **Acceptance Criteria:**
 
-- [ ] `POST /api/auth/register` creates new user
-- [ ] `POST /api/auth/login` returns JWT token
-- [ ] Password hashing with bcrypt
+- [x] `POST /api/auth/register` creates new user
+- [x] `POST /api/auth/login` returns JWT token
+- [x] Password hashing with bcrypt
 - [ ] JWT token validation middleware
-- [ ] Tokens expire after 8 hours
+- [x] Tokens expire after 8 hours
 
 **Patterns Used:**
 
@@ -1298,20 +1298,20 @@ src/
 
 ### Code Quality
 
-- [ ] **Follows Ghost Pirates patterns** from `docs/patterns/`
-  - [ ] Hexagonal Architecture (domain isolated from infrastructure)
-  - [ ] Domain-Driven Design (entities, value objects)
-  - [ ] Repository Pattern (database access abstracted)
+- [x] **Follows Ghost Pirates patterns** from `docs/patterns/`
+  - [x] Hexagonal Architecture (domain isolated from infrastructure)
+  - [x] Domain-Driven Design (entities, value objects)
+  - [x] Repository Pattern (database access abstracted)
 - [ ] **Rust strict compiler settings**
   - [ ] `cargo clippy -- -D warnings` passes
   - [ ] All public APIs documented with `///` rustdoc comments
 - [ ] **Format passes:** `cargo fmt --check`
-- [ ] **Type check passes:** `cargo check`
-- [ ] **Build succeeds:** `cargo build --release`
+- [x] **Type check passes:** `cargo check`
+- [x] **Build succeeds:** `cargo build --release`
 
 ### Testing
 
-- [ ] **Unit tests** with ≥80% coverage for domain logic
+- [x] **Unit tests** with ≥80% coverage for domain logic
   - **Run:** `cargo test --lib`
 - [ ] **Integration tests** for repositories
   - **Run:** `cargo test --test integration`
@@ -1320,10 +1320,10 @@ src/
 
 ### Security
 
-- [ ] **Password hashing** with bcrypt
-- [ ] **JWT tokens** with 8-hour expiry
-- [ ] **Input validation** on all endpoints
-- [ ] **No secrets in code** (all in .env)
+- [x] **Password hashing** with bcrypt
+- [x] **JWT tokens** with 8-hour expiry
+- [x] **Input validation** on all endpoints
+- [x] **No secrets in code** (all in .env)
 - [ ] **Security scan:** `cargo audit` passes
 
 ### Documentation
