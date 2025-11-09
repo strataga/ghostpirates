@@ -1316,8 +1316,9 @@ src/
 - [x] **Integration tests** for repositories (9 tests, all passing)
   - **Run:** `DATABASE_URL=<url> cargo test --test repository_integration`
   - Tests: CRUD operations, tenant isolation, foreign key constraints
-- [x] **E2E tests** for API endpoints (manual testing completed)
-  - **Test:** Register → Login → Access protected endpoint with JWT ✓
+- [x] **E2E tests** for API endpoints (7 automated tests, all passing)
+  - **Run:** `DATABASE_URL=<url> cargo test --test api_integration`
+  - **Tests:** Health check, registration, login flow, team creation, full user journey, protected endpoint auth
 
 ### Security
 
