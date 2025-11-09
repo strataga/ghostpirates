@@ -134,21 +134,49 @@ cd ghost-pirates-api && cargo run
 cd ghost-pirates-web && npm run dev
 ```
 
-## Key Implementation Patterns
+## Architectural Patterns
 
-### Agent System
+**CRITICAL**: Ghost Pirates uses established software engineering patterns documented in `/docs/patterns/`. **Always consult the relevant pattern documentation before implementing features.**
+
+### Pattern Catalog (101 Patterns Available)
+
+The `/docs/patterns/` directory contains comprehensive pattern documentation covering:
+
+**Core Architectural Patterns:**
+- **Hexagonal Architecture** (`03-Hexagonal-Architecture.md`) - ALWAYS use this for all features
+- **Domain-Driven Design** (`04-Domain-Driven-Design.md`) - For complex business logic
+- **CQRS Pattern** (`05-CQRS-Pattern.md`) - Separate read/write models
+- **Repository Pattern** (`06-Repository-Pattern.md`) - Data access abstraction
+- **Event Sourcing** - For audit trails and temporal queries
+
+**Essential Patterns:**
+- **Multi-Tenancy** (`17-Multi-Tenancy-Pattern.md`) - Database-per-tenant isolation
+- **RBAC with CASL** (`01-RBAC-CASL-Pattern.md`) - Authorization and permissions
+- **Circuit Breaker** (`13-Circuit-Breaker-Pattern.md`) - Resilience for LLM API calls
+- **Retry Pattern** (`15-Retry-Pattern.md`) - Transient failure handling
+- **Strategy Pattern** (`10-Strategy-Pattern.md`) - Dynamic behavior (tool selection)
+- **Factory Pattern** (`11-Factory-Pattern.md`) - Agent creation
+- **Observer Pattern** (`12-Observer-Pattern.md`) - Event-driven updates
+
+**How to Use Patterns:**
+1. Read **Pattern Integration Guide** (`16-Pattern-Integration-Guide.md`) first
+2. Identify which patterns apply to your feature
+3. Follow the pattern's implementation guidelines exactly
+4. Reference pattern examples in your code comments
+
+### Agent System Implementation Patterns
 
 **Manager Agent Responsibilities:**
-- Analyze user goals and decompose into tasks
-- Determine required specializations and create workers
-- Assign tasks based on skill matching
-- Review worker outputs against acceptance criteria
-- Request revisions or approve completion
+- Analyze user goals and decompose into tasks (uses **Strategy Pattern** for different goal types)
+- Determine required specializations and create workers (uses **Factory Pattern**)
+- Assign tasks based on skill matching (uses **Specification Pattern**)
+- Review worker outputs against acceptance criteria (uses **Chain of Responsibility**)
+- Request revisions or approve completion (uses **State Machine Pattern**)
 
 **Worker Agent Responsibilities:**
-- Execute assigned tasks using available tools
-- Report results to manager with evidence
-- Handle revisions based on manager feedback
+- Execute assigned tasks using available tools (uses **Strategy Pattern** for tool selection)
+- Report results to manager with evidence (uses **Observer Pattern** for notifications)
+- Handle revisions based on manager feedback (uses **Command Pattern**)
 
 ### Error Recovery
 
@@ -197,10 +225,28 @@ WebSocket connections at `/ws/teams/{team_id}` provide:
 
 ## Key Files to Reference
 
+### Implementation Plans & Roadmaps
+- `/docs/plans/README.md`: Master index for all 20 phased implementation plans
+- `/docs/plans/00-project-overview.md`: Vision, goals, market opportunity, success metrics
+- `/docs/plans/04-phase-1-foundation.md`: First sprint (database, API, auth) - **START HERE**
+- `/docs/plans/05-phase-2-agent-system.md`: Agent implementation (manager + workers)
+
+### Research & Architecture
 - `/docs/research/GHOST_PIRATES_PROJECT_PLAN.md`: Complete system design (100 pages)
 - `/docs/research/technical-architecture-and-business-operations.md`: AI agent architecture patterns
 - `/docs/research/ENGINEERING_CHECKLIST.md`: Sprint-by-sprint implementation roadmap
 - `/docs/research/README_MASTER_INDEX.md`: Navigation guide for all documentation
+
+### Patterns & Best Practices (MUST READ)
+- `/docs/patterns/16-Pattern-Integration-Guide.md`: **READ FIRST** - How to choose patterns
+- `/docs/patterns/03-Hexagonal-Architecture.md`: Core architecture (REQUIRED for all features)
+- `/docs/patterns/04-Domain-Driven-Design.md`: Domain modeling, entities, value objects
+- `/docs/patterns/06-Repository-Pattern.md`: Data access patterns
+- `/docs/patterns/13-Circuit-Breaker-Pattern.md`: Resilience for external APIs (LLMs)
+- `/docs/patterns/17-Multi-Tenancy-Pattern.md`: Tenant isolation strategies
+
+### Sprint Templates
+- `/docs/sprints/TEMPLATE.md`: Template for creating detailed sprint documents
 
 ## Development Workflow
 
