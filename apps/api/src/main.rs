@@ -1,8 +1,3 @@
-mod api;
-mod auth;
-mod domain;
-mod infrastructure;
-
 use axum::{
     routing::{delete, get, post},
     Router,
@@ -12,7 +7,7 @@ use std::net::SocketAddr;
 use tower_http::cors::{Any, CorsLayer};
 use tower_http::trace::TraceLayer;
 
-use api::handlers::{auth as auth_handlers, teams};
+use ghostpirates_api::api::handlers::{auth as auth_handlers, teams};
 
 #[tokio::main]
 async fn main() {
