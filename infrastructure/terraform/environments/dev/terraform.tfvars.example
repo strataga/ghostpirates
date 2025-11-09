@@ -1,0 +1,16 @@
+# infrastructure/terraform/environments/dev/terraform.tfvars.example
+# Copy this file to terraform.tfvars and fill in the values
+
+location                = "eastus"
+postgres_admin_password = "CHANGE_ME_STRONG_PASSWORD_HERE"
+
+# Region notes:
+# - Use "eastus" for better availability on free/trial subscriptions
+# - Alternative regions: eastus2, westus2, centralus
+# - Check PostgreSQL availability: az postgres flexible-server list-skus --location eastus
+
+# Password requirements:
+# - At least 8 characters
+# - Must contain uppercase, lowercase, numbers
+# - Avoid special characters that could break connection strings
+# - Example: DevTest2025Pass (don't use this exact password!)

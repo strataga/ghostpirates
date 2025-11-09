@@ -14,7 +14,7 @@ use bcrypt::{hash, verify, DEFAULT_COST};
 ///
 /// # Example
 /// ```
-/// use auth::password::hash_password;
+/// use ghostpirates_api::auth::password::hash_password;
 ///
 /// let hash = hash_password("my_password").expect("valid hash");
 /// ```
@@ -35,7 +35,7 @@ pub fn hash_password(password: &str) -> Result<String, String> {
 ///
 /// # Example
 /// ```
-/// use auth::password::{hash_password, verify_password};
+/// use ghostpirates_api::auth::password::{hash_password, verify_password};
 ///
 /// let hash = hash_password("my_password").unwrap();
 /// let valid = verify_password("my_password", &hash).unwrap();

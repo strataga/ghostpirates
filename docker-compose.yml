@@ -1,3 +1,7 @@
+# Ghost Pirates - Local Development Services
+# This Docker Compose setup provides local infrastructure for development
+# See: infrastructure/terraform/environments/local/README.md for full guide
+
 services:
   postgres:
     image: postgres:16-alpine
@@ -7,7 +11,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: ghostpirates_dev
     ports:
-      - "54320:5432"
+      - "54320:5432"  # Non-standard port to avoid conflicts
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -32,3 +36,6 @@ services:
 volumes:
   postgres_data:
   redis_data:
+
+# Cost: $0/month (local only)
+# For Azure deployment: see infrastructure/terraform/environments/dev/

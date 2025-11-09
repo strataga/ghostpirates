@@ -1,0 +1,53 @@
+# Claude Code Ignore File
+# Files and directories that Claude Code should not read or modify
+
+# Dependencies
+node_modules/
+target/
+.pnpm-store/
+.turbo/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment files (sensitive)
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# Large data files
+*.sql
+*.dump
+data/
+backups/
+
+# Generated files
+coverage/
+.nyc_output/
+*.tsbuildinfo
+
+# Lock files (can reference but don't need to read full content)
+pnpm-lock.yaml
+package-lock.json
+Cargo.lock

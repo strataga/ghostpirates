@@ -37,7 +37,7 @@ pub struct Claims {
 ///
 /// # Example
 /// ```
-/// use auth::jwt::create_token;
+/// use ghostpirates_api::auth::jwt::create_token;
 /// use uuid::Uuid;
 ///
 /// let user_id = Uuid::new_v4();
@@ -72,7 +72,7 @@ pub fn create_token(user_id: Uuid, secret: &str) -> Result<String, String> {
 ///
 /// # Example
 /// ```
-/// use auth::jwt::{create_token, verify_token};
+/// use ghostpirates_api::auth::jwt::{create_token, verify_token};
 /// use uuid::Uuid;
 ///
 /// let user_id = Uuid::new_v4();

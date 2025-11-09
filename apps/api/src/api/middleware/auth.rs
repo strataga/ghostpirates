@@ -11,7 +11,10 @@ use crate::auth::jwt::verify_token;
 /// JWT authentication extractor for protected routes
 ///
 /// Usage:
-/// ```rust
+/// ```ignore
+/// use ghostpirates_api::api::middleware::auth::JwtAuth;
+/// use ghostpirates_api::api::errors::ApiError;
+///
 /// async fn protected_handler(
 ///     JwtAuth(user_id): JwtAuth,
 /// ) -> Result<String, ApiError> {

@@ -17,7 +17,7 @@ use uuid::Uuid;
 ///
 /// # Example
 /// ```
-/// use domain::team::Team;
+/// use ghostpirates_api::domain::team::Team;
 /// use uuid::Uuid;
 ///
 /// let (team, events) = Team::new(

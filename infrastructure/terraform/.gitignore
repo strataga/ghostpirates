@@ -1,0 +1,39 @@
+# Terraform state files
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Exclude all .tfvars files (contain sensitive data)
+*.tfvars
+*.tfvars.json
+
+# Keep example files
+!*.tfvars.example
+
+# Ignore override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform CLI configuration
+.terraformrc
+terraform.rc
+
+# Terraform lock file (commit this)
+# .terraform.lock.hcl
+
+# Terraform plugins
+.terraform/
+.terraform.lock.hcl
+
+# Terragrunt
+.terragrunt-cache/
+
+# Plan files
+*.tfplan
+tfplan

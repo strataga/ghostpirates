@@ -23,7 +23,7 @@ impl Email {
     ///
     /// # Example
     /// ```
-    /// use domain::user::Email;
+    /// use ghostpirates_api::domain::user::value_objects::Email;
     ///
     /// let email = Email::new("test@example.com").expect("valid email");
     /// assert_eq!(email.as_str(), "test@example.com");

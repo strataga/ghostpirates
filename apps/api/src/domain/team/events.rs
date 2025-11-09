@@ -10,7 +10,7 @@ use uuid::Uuid;
 ///
 /// # Example
 /// ```
-/// use domain::team::TeamEvent;
+/// use ghostpirates_api::domain::team::events::TeamEvent;
 /// use uuid::Uuid;
 ///
 /// let event = TeamEvent::Created {

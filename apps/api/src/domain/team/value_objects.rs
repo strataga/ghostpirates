@@ -37,7 +37,7 @@ impl TeamStatus {
     ///
     /// # Example
     /// ```
-    /// use domain::team::TeamStatus;
+    /// use ghostpirates_api::domain::team::value_objects::TeamStatus;
     ///
     /// assert!(TeamStatus::Pending.can_transition_to(TeamStatus::Planning));
     /// assert!(!TeamStatus::Pending.can_transition_to(TeamStatus::Active));
