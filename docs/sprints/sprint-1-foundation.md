@@ -29,15 +29,15 @@
 ## 📊 Progress Dashboard
 
 **Last Updated:** 2025-11-08
-**Overall Sprint Progress:** 0% Complete (0 of 5 user stories done)
+**Overall Sprint Progress:** 41% Complete (2.4 of 5 user stories done)
 
 | User Story                          | Tasks Complete | Progress             | Status         | Assignee | Blockers |
 | ----------------------------------- | -------------- | -------------------- | -------------- | -------- | -------- |
-| US-101: Database Schema             | 0/50 (0%)      | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ | 🔴 Not Started | -        | None     |
-| US-102: Domain Models (DDD)         | 0/40 (0%)      | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ | 🔴 Not Started | -        | None     |
-| US-103: Repository Layer            | 0/35 (0%)      | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ | 🔴 Not Started | -        | None     |
-| US-104: API Foundation (Axum)       | 0/30 (0%)      | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ | 🔴 Not Started | -        | None     |
-| US-105: JWT Authentication          | 0/25 (0%)      | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ | 🔴 Not Started | -        | None     |
+| US-101: Database Schema             | 6/10 (60%)     | ⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛ | 🟡 In Progress | -        | None     |
+| US-102: Domain Models (DDD)         | 6/7 (86%)      | ⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛ | 🟡 In Progress | -        | None     |
+| US-103: Repository Layer            | 0/4 (0%)       | ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ | 🔴 Not Started | -        | None     |
+| US-104: API Foundation (Axum)       | 1/5 (20%)      | ⬜⬛⬛⬛⬛⬛⬛⬛⬛⬛ | 🟡 In Progress | -        | None     |
+| US-105: JWT Authentication          | 3/7 (43%)      | ⬜⬜⬜⬛⬛⬛⬛⬛⬛⬛ | 🟡 In Progress | -        | None     |
 
 **Status Legend:**
 
@@ -244,12 +244,12 @@ apps/api/
 
 **Phase 1: Database Setup** (Tasks 101.1 - 101.10)
 
-- [ ] **101.1** - Initialize Cargo project
+- [x] **101.1** - Initialize Cargo project
   - **Command:** `cargo new ghostpirates-api && cd ghostpirates-api`
   - **Validation:** `cargo build` succeeds
   - **Estimate:** 10 minutes
 
-- [ ] **101.2** - Add SQLx dependencies to Cargo.toml
+- [x] **101.2** - Add SQLx dependencies to Cargo.toml
   - **File:** `Cargo.toml`
   - **Code:**
 
@@ -280,7 +280,7 @@ apps/api/
   - **Validation:** `psql $DATABASE_URL -c "\l"` shows database exists
   - **Estimate:** 2 minutes
 
-- [ ] **101.5** - Create companies table migration
+- [x] **101.5** - Create companies table migration
   - **Command:** `sqlx migrate add create_companies_table`
   - **File:** `migrations/XXXXXX_create_companies_table.sql`
   - **Code:**
@@ -301,7 +301,7 @@ apps/api/
   - **Validation:** File created in migrations/
   - **Estimate:** 10 minutes
 
-- [ ] **101.6** - Create users table migration
+- [x] **101.6** - Create users table migration
   - **Command:** `sqlx migrate add create_users_table`
   - **Code:**
 
@@ -325,7 +325,7 @@ apps/api/
 
   - **Estimate:** 15 minutes
 
-- [ ] **101.7** - Create teams table migration
+- [x] **101.7** - Create teams table migration
   - **Command:** `sqlx migrate add create_teams_table`
   - **Code:**
 
@@ -357,7 +357,7 @@ apps/api/
 
   - **Estimate:** 20 minutes
 
-- [ ] **101.8** - Create remaining tables (team_members, tasks, messages, checkpoints, cost_tracking)
+- [x] **101.8** - Create remaining tables (team_members, tasks, messages, checkpoints, cost_tracking)
   - **Commands:** Run `sqlx migrate add` for each table
   - **Refer to:** [Phase 1 Plan](../plans/04-phase-1-foundation.md) for complete SQL
   - **Estimate:** 60 minutes
@@ -434,7 +434,7 @@ src/
 
 #### 📋 Sub-Tasks Breakdown (US-102)
 
-- [ ] **102.1** - Create domain module structure
+- [x] **102.1** - Create domain module structure
   - **Commands:**
 
     ```bash
@@ -447,7 +447,7 @@ src/
 
   - **Estimate:** 5 minutes
 
-- [ ] **102.2** - Implement Email value object
+- [x] **102.2** - Implement Email value object
   - **File:** `src/domain/user/value_objects.rs`
   - **Code:**
 
@@ -501,7 +501,7 @@ src/
 
   - **Estimate:** 20 minutes
 
-- [ ] **102.3** - Implement TeamStatus enum
+- [x] **102.3** - Implement TeamStatus enum
   - **File:** `src/domain/team/value_objects.rs`
   - **Code:**
 
@@ -551,7 +551,7 @@ src/
 
   - **Estimate:** 20 minutes
 
-- [ ] **102.4** - Implement Team entity
+- [x] **102.4** - Implement Team entity
   - **File:** `src/domain/team/team.rs`
   - **Code:**
 
@@ -665,7 +665,7 @@ src/
 
   - **Estimate:** 60 minutes
 
-- [ ] **102.5** - Implement domain events
+- [x] **102.5** - Implement domain events
   - **File:** `src/domain/team/events.rs`
   - **Code:**
 
@@ -695,11 +695,11 @@ src/
 
   - **Estimate:** 15 minutes
 
-- [ ] **102.6** - Implement User, Task entities (similar pattern)
+- [x] **102.6** - Implement User, Task entities (similar pattern)
   - **Refer to:** Team entity implementation above
   - **Estimate:** 120 minutes
 
-- [ ] **102.7** - Write unit tests for all domain entities
+- [x] **102.7** - Write unit tests for all domain entities
   - **Target:** ≥80% coverage
   - **Command:** `cargo test --lib`
   - **Estimate:** 60 minutes
@@ -876,7 +876,7 @@ src/
 
 #### 📋 Sub-Tasks Breakdown (US-104)
 
-- [ ] **104.1** - Create main.rs with Axum server
+- [x] **104.1** - Create main.rs with Axum server
   - **File:** `src/main.rs`
   - **Code:**
 
@@ -1031,7 +1031,7 @@ src/
 
 #### 📋 Sub-Tasks Breakdown (US-105)
 
-- [ ] **105.1** - Add authentication dependencies
+- [x] **105.1** - Add authentication dependencies
   - **Cargo.toml:**
 
     ```toml
@@ -1041,7 +1041,7 @@ src/
 
   - **Estimate:** 2 minutes
 
-- [ ] **105.2** - Implement password hashing
+- [x] **105.2** - Implement password hashing
   - **File:** `src/auth/password.rs`
   - **Code:**
 
@@ -1059,7 +1059,7 @@ src/
 
   - **Estimate:** 15 minutes
 
-- [ ] **105.3** - Implement JWT token creation
+- [x] **105.3** - Implement JWT token creation
   - **File:** `src/auth/jwt.rs`
   - **Code:**
 
