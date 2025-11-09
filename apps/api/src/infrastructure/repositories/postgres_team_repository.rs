@@ -1,4 +1,5 @@
 use async_trait::async_trait;
+use rust_decimal::Decimal;
 use sqlx::PgPool;
 use uuid::Uuid;
 
@@ -40,8 +41,7 @@ impl TeamRepository for PostgresTeamRepository {
                 manager_agent_id = EXCLUDED.manager_agent_id,
                 started_at = EXCLUDED.started_at,
                 completed_at = EXCLUDED.completed_at,
-                budget_limit = EXCLUDED.budget_limit,
-                updated_at = NOW()
+                budget_limit = EXCLUDED.budget_limit
             "#,
             team.id(),
             team.company_id(),
@@ -68,7 +68,8 @@ impl TeamRepository for PostgresTeamRepository {
                 id, company_id, goal,
                 status as "status: TeamStatus",
                 manager_agent_id, created_by,
-                created_at, started_at, completed_at, budget_limit
+                created_at, started_at, completed_at,
+                budget_limit as "budget_limit: Decimal"
             FROM teams
             WHERE id = $1
             "#,
@@ -101,7 +102,8 @@ impl TeamRepository for PostgresTeamRepository {
                 id, company_id, goal,
                 status as "status: TeamStatus",
                 manager_agent_id, created_by,
-                created_at, started_at, completed_at, budget_limit
+                created_at, started_at, completed_at,
+                budget_limit as "budget_limit: Decimal"
             FROM teams
             WHERE company_id = $1
             ORDER BY created_at DESC
@@ -138,7 +140,8 @@ impl TeamRepository for PostgresTeamRepository {
                 id, company_id, goal,
                 status as "status: TeamStatus",
                 manager_agent_id, created_by,
-                created_at, started_at, completed_at, budget_limit
+                created_at, started_at, completed_at,
+                budget_limit as "budget_limit: Decimal"
             FROM teams
             WHERE created_by = $1
             ORDER BY created_at DESC

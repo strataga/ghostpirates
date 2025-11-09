@@ -7,7 +7,8 @@ use serde::{Deserialize, Serialize};
 /// Pending -> Planning -> Active -> Completed
 ///                            └---> Failed -> Archived
 /// ```
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, sqlx::Type)]
+#[sqlx(type_name = "team_status", rename_all = "lowercase")]
 pub enum TeamStatus {
     /// Team is pending creation/initialization
     Pending,
