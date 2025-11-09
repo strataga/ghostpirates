@@ -11,15 +11,15 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@ghostpirates/types": "*",
-    "@ghostpirates/ui": "*",
+    "@ghostpirates/types": "workspace:*",
+    "@ghostpirates/ui": "workspace:*",
     "next": "^15.1.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@ghostpirates/eslint-config": "*",
-    "@ghostpirates/tsconfig": "*",
+    "@ghostpirates/eslint-config": "workspace:*",
+    "@ghostpirates/tsconfig": "workspace:*",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",

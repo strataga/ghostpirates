@@ -29,6 +29,10 @@
       "outputs": [],
       "cache": false
     },
+    "format:check": {
+      "outputs": [],
+      "cache": false
+    },
     "clean": {
       "cache": false
     }

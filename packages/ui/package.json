@@ -9,12 +9,12 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@ghostpirates/types": "*",
+    "@ghostpirates/types": "workspace:*",
     "react": "^19.0.0"
   },
   "devDependencies": {
-    "@ghostpirates/eslint-config": "*",
-    "@ghostpirates/tsconfig": "*",
+    "@ghostpirates/eslint-config": "workspace:*",
+    "@ghostpirates/tsconfig": "workspace:*",
     "@types/react": "^19.0.2",
     "eslint": "^9.17.0",
     "typescript": "^5.7.2"

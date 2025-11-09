@@ -11,18 +11,24 @@
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "format": "turbo run format",
-    "clean": "turbo run clean && rm -rf node_modules",
     "type-check": "turbo run type-check",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "clean": "turbo run clean && rm -rf node_modules",
     "api:dev": "cd apps/api && cargo run",
     "api:test": "cd apps/api && cargo test",
     "api:build": "cd apps/api && cargo build --release",
     "api:fmt": "cd apps/api && cargo fmt --check",
+    "api:fmt:fix": "cd apps/api && cargo fmt",
     "api:clippy": "cd apps/api && cargo clippy -- -D warnings",
-    "web:dev": "turbo run dev --filter=web",
-    "web:build": "turbo run build --filter=web",
-    "web:lint": "turbo run lint --filter=web",
-    "check-all": "npm run api:fmt && npm run api:clippy && npm run lint && npm run type-check",
+    "api:db:create": "cd apps/api && sqlx database create",
+    "api:db:drop": "cd apps/api && sqlx database drop",
+    "api:db:migrate": "cd apps/api && sqlx migrate run",
+    "api:db:reset": "cd apps/api && sqlx database drop -y && sqlx database create && sqlx migrate run",
+    "check-all": "pnpm run api:fmt && pnpm run api:clippy && pnpm run lint && pnpm run type-check",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
     "prepare": "husky install"
   },
   "devDependencies": {
@@ -34,7 +40,7 @@
   },
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=8.0.0"
   },
-  "packageManager": "npm@10.20.0"
+  "packageManager": "pnpm@9.15.0"
 }

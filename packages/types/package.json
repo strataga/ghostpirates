@@ -8,7 +8,7 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@ghostpirates/tsconfig": "*",
+    "@ghostpirates/tsconfig": "workspace:*",
     "typescript": "^5.7.2"
   }
 }

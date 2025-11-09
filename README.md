@@ -19,18 +19,19 @@ cat docs/plans/README.md                         # Implementation plan index
 cat docs/patterns/16-Pattern-Integration-Guide.md  # Architecture patterns
 
 # Install dependencies
-npm install
+pnpm install
 
 # Set up local environment
-docker-compose up -d      # Start PostgreSQL + Redis
+pnpm docker:up            # Start PostgreSQL + Redis
 cp apps/api/.env.example apps/api/.env
 # Edit apps/api/.env with your database URL
 
-# Run the backend (Rust)
-cd apps/api && cargo run
+# Run everything in dev mode
+pnpm dev
 
-# Run the frontend (Next.js)
-cd apps/web && npm run dev
+# Or run individually:
+pnpm api:dev              # Rust backend only
+turbo run dev --filter=web  # Next.js frontend only
 ```
 
 ---
@@ -193,23 +194,45 @@ Every decision logged → Reasoning visible → Communications tracked → Costs
 
 ---
 
+## 🧪 Common Commands
+
+```bash
+# Development
+pnpm dev                  # Run all apps in dev mode
+pnpm build                # Build all apps
+pnpm lint                 # Lint all code
+pnpm type-check           # TypeScript type checking
+pnpm format               # Format code with Prettier
+pnpm check-all            # Run all quality checks
+
+# Rust API
+pnpm api:dev              # Run API in dev mode
+pnpm api:test             # Run Rust tests
+pnpm api:fmt              # Check Rust formatting
+pnpm api:clippy           # Run Rust linter
+pnpm api:db:reset         # Reset database with migrations
+
+# Docker
+pnpm docker:up            # Start PostgreSQL + Redis
+pnpm docker:down          # Stop all containers
+pnpm docker:logs          # View container logs
+```
+
 ## 🧪 Testing Strategy
 
 ```bash
-# Unit tests (domain logic, business rules)
-cargo test --lib
+# Rust tests
+pnpm api:test             # All Rust tests
+cd apps/api && cargo test --lib  # Unit tests only
 
-# Integration tests (repositories, external APIs)
-cargo test --test integration
-
-# E2E tests (complete user workflows)
-cargo test --test e2e
+# TypeScript tests (coming soon)
+pnpm test                 # All tests via Turbo
 
 # Load testing (k6)
 k6 run tests/load/team-creation.js
 
-# Coverage report
-cargo tarpaulin --out Html
+# Coverage
+cd apps/api && cargo tarpaulin --out Html
 ```
 
 Target: 80%+ coverage for critical paths
