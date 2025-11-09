@@ -1,6 +1,6 @@
+use crate::domain::team::Team;
 use async_trait::async_trait;
 use uuid::Uuid;
-use crate::domain::team::Team;
 
 /// Repository trait for Team aggregate
 ///
@@ -18,6 +18,7 @@ pub trait TeamRepository: Send + Sync {
     async fn find_by_company(&self, company_id: Uuid) -> Result<Vec<Team>, String>;
 
     /// Find all teams created by a specific user
+    #[allow(dead_code)]
     async fn find_by_creator(&self, user_id: Uuid) -> Result<Vec<Team>, String>;
 
     /// Delete a team by ID

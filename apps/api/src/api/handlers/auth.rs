@@ -74,16 +74,13 @@ pub async fn register(
 
     // Save to database
     let user_repo = PostgresUserRepository::new(pool);
-    let user_id = user_repo
-        .create(user)
-        .await
-        .map_err(|e| {
-            if e.contains("duplicate") || e.contains("unique") {
-                ApiError::bad_request("Email already registered")
-            } else {
-                ApiError::internal_server_error(format!("Failed to create user: {}", e))
-            }
-        })?;
+    let user_id = user_repo.create(user).await.map_err(|e| {
+        if e.contains("duplicate") || e.contains("unique") {
+            ApiError::bad_request("Email already registered")
+        } else {
+            ApiError::internal_server_error(format!("Failed to create user: {}", e))
+        }
+    })?;
 
     Ok((
         StatusCode::CREATED,
@@ -119,8 +116,9 @@ pub async fn login(
     }
 
     // Verify password
-    let valid = verify_password(&req.password, &user.password_hash)
-        .map_err(|e| ApiError::internal_server_error(format!("Password verification failed: {}", e)))?;
+    let valid = verify_password(&req.password, &user.password_hash).map_err(|e| {
+        ApiError::internal_server_error(format!("Password verification failed: {}", e))
+    })?;
 
     if !valid {
         return Err(ApiError::unauthorized("Invalid credentials"));

@@ -1246,11 +1246,11 @@ src/
 
   - **Estimate:** 45 minutes
 
-- [ ] **105.6** - Implement JWT validation middleware
+- [x] **105.6** - Implement JWT validation middleware
   - **File:** `src/api/middleware/auth.rs`
   - **Estimate:** 60 minutes
 
-- [ ] **105.7** - Test authentication flow end-to-end
+- [x] **105.7** - Test authentication flow end-to-end
   - **Test:** Register → Login → Access protected endpoint with token
   - **Estimate:** 30 minutes
 

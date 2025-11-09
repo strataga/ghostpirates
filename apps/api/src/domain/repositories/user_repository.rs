@@ -1,6 +1,6 @@
+use crate::domain::user::value_objects::Email;
 use async_trait::async_trait;
 use uuid::Uuid;
-use crate::domain::user::value_objects::Email;
 
 /// User data for persistence
 ///
@@ -22,12 +22,14 @@ pub trait UserRepository: Send + Sync {
     async fn create(&self, user: User) -> Result<Uuid, String>;
 
     /// Find a user by ID
+    #[allow(dead_code)]
     async fn find_by_id(&self, id: Uuid) -> Result<Option<User>, String>;
 
     /// Find a user by email address
     async fn find_by_email(&self, email: &Email) -> Result<Option<User>, String>;
 
     /// Find all users for a company
+    #[allow(dead_code)]
     async fn find_by_company(&self, company_id: Uuid) -> Result<Vec<User>, String>;
 
     /// Update user's last login timestamp

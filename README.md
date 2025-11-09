@@ -284,6 +284,166 @@ See [docs/plans/12-cost-optimization.md](./docs/plans/12-cost-optimization.md) f
 
 ---
 
+## 📡 API Documentation
+
+### Base URL
+```
+http://localhost:3000
+```
+
+### Authentication Endpoints
+
+#### Register New User
+```http
+POST /api/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "securepassword123",
+  "full_name": "John Doe",
+  "company_id": "uuid-here"
+}
+```
+
+**Response (201 Created):**
+```json
+{
+  "user_id": "uuid-here",
+  "message": "User registered successfully"
+}
+```
+
+#### Login
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "securepassword123"
+}
+```
+
+**Response (200 OK):**
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user_id": "uuid-here"
+}
+```
+
+### Team Endpoints
+
+#### Create Team
+```http
+POST /api/teams
+Content-Type: application/json
+
+{
+  "goal": "Build a new feature",
+  "company_id": "uuid-here",
+  "created_by": "uuid-here",
+  "budget_limit": 100.00
+}
+```
+
+**Response (201 Created):**
+```json
+{
+  "id": "team-uuid",
+  "company_id": "uuid-here",
+  "goal": "Build a new feature",
+  "status": "Pending",
+  "created_by": "uuid-here",
+  "budget_limit": 100.00
+}
+```
+
+#### Get Team by ID
+```http
+GET /api/teams/:id
+```
+
+**Response (200 OK):**
+```json
+{
+  "id": "team-uuid",
+  "company_id": "uuid-here",
+  "goal": "Build a new feature",
+  "status": "Active",
+  "created_by": "uuid-here",
+  "budget_limit": 100.00
+}
+```
+
+#### List Teams for Company
+```http
+GET /api/teams/company/:company_id
+```
+
+**Response (200 OK):**
+```json
+[
+  {
+    "id": "team-uuid-1",
+    "company_id": "uuid-here",
+    "goal": "Build feature A",
+    "status": "Active",
+    "created_by": "uuid-here",
+    "budget_limit": 100.00
+  },
+  {
+    "id": "team-uuid-2",
+    "company_id": "uuid-here",
+    "goal": "Build feature B",
+    "status": "Completed",
+    "created_by": "uuid-here",
+    "budget_limit": 150.00
+  }
+]
+```
+
+#### Delete Team
+```http
+DELETE /api/teams/:id
+```
+
+**Response (204 No Content)**
+
+### Health Check
+
+#### Server Health
+```http
+GET /health
+```
+
+**Response (200 OK):**
+```
+OK
+```
+
+### Error Responses
+
+All endpoints return structured JSON errors:
+
+```json
+{
+  "error": "Email already registered"
+}
+```
+
+**HTTP Status Codes:**
+- `200 OK` - Successful GET request
+- `201 Created` - Successful POST request
+- `204 No Content` - Successful DELETE request
+- `400 Bad Request` - Invalid input
+- `401 Unauthorized` - Authentication failed
+- `404 Not Found` - Resource not found
+- `500 Internal Server Error` - Server error
+
+---
+
 ## 🤝 Contributing
 
 This project is currently in active development. Once the MVP is complete, we'll open for contributions.

@@ -9,8 +9,8 @@ use sqlx::PgPool;
 use uuid::Uuid;
 
 use crate::api::errors::ApiError;
+use crate::api::middleware::JwtAuth;
 use crate::domain::repositories::TeamRepository;
-use crate::domain::team::value_objects::TeamStatus;
 use crate::domain::team::Team;
 use crate::infrastructure::repositories::PostgresTeamRepository;
 
@@ -55,13 +55,8 @@ pub async fn create_team(
     Json(req): Json<CreateTeamRequest>,
 ) -> Result<(StatusCode, Json<TeamResponse>), ApiError> {
     // Create team domain entity
-    let (team, _events) = Team::new(
-        req.company_id,
-        req.goal,
-        req.created_by,
-        req.budget_limit,
-    )
-    .map_err(|e| ApiError::bad_request(e))?;
+    let (team, _events) = Team::new(req.company_id, req.goal, req.created_by, req.budget_limit)
+        .map_err(ApiError::bad_request)?;
 
     // Save to database
     let team_repo = PostgresTeamRepository::new(pool);
@@ -73,13 +68,17 @@ pub async fn create_team(
     Ok((StatusCode::CREATED, Json(TeamResponse::from(&team))))
 }
 
-/// Get a team by ID
+/// Get a team by ID (requires authentication)
 ///
 /// GET /api/teams/:id
 pub async fn get_team(
+    JwtAuth(user_id): JwtAuth,
     State(pool): State<PgPool>,
     Path(id): Path<Uuid>,
 ) -> Result<Json<TeamResponse>, ApiError> {
+    // Log the authenticated user (in production, you might check permissions here)
+    tracing::info!("User {} accessing team {}", user_id, id);
+
     let team_repo = PostgresTeamRepository::new(pool);
     let team = team_repo
         .find_by_id(id)
@@ -116,16 +115,13 @@ pub async fn delete_team(
     Path(id): Path<Uuid>,
 ) -> Result<StatusCode, ApiError> {
     let team_repo = PostgresTeamRepository::new(pool);
-    team_repo
-        .delete(id)
-        .await
-        .map_err(|e| {
-            if e.contains("not found") {
-                ApiError::not_found(e)
-            } else {
-                ApiError::internal_server_error(format!("Failed to delete team: {}", e))
-            }
-        })?;
+    team_repo.delete(id).await.map_err(|e| {
+        if e.contains("not found") {
+            ApiError::not_found(e)
+        } else {
+            ApiError::internal_server_error(format!("Failed to delete team: {}", e))
+        }
+    })?;
 
     Ok(StatusCode::NO_CONTENT)
 }

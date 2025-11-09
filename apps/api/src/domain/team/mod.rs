@@ -9,4 +9,3 @@ pub mod value_objects;
 
 // Re-export main types for convenience
 pub use team::Team;
-pub use value_objects::TeamStatus;

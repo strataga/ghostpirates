@@ -23,11 +23,10 @@ async fn main() {
     dotenv::dotenv().ok();
 
     // Get database URL
-    let database_url = std::env::var("DATABASE_URL")
-        .unwrap_or_else(|_| {
-            tracing::warn!("DATABASE_URL not set, using default");
-            "postgresql://postgres:postgres@localhost:5432/ghostpirates_dev".to_string()
-        });
+    let database_url = std::env::var("DATABASE_URL").unwrap_or_else(|_| {
+        tracing::warn!("DATABASE_URL not set, using default");
+        "postgresql://postgres:postgres@localhost:5432/ghostpirates_dev".to_string()
+    });
 
     // Connect to database
     tracing::info!("Connecting to database...");
@@ -74,7 +73,5 @@ async fn main() {
         .await
         .expect("Failed to bind address");
 
-    axum::serve(listener, app)
-        .await
-        .expect("Server failed");
+    axum::serve(listener, app).await.expect("Server failed");
 }
