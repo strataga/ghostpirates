@@ -222,6 +222,40 @@ impl Team {
     pub fn budget_limit(&self) -> Option<Decimal> {
         self.budget_limit
     }
+
+    /// Reconstructs a Team from persistence layer data
+    ///
+    /// This method bypasses business rules validation since the data
+    /// is already validated and stored in the database.
+    ///
+    /// # Note
+    /// Only to be used by repository implementations for data reconstruction.
+    #[allow(clippy::too_many_arguments)]
+    pub fn from_persistence(
+        id: Uuid,
+        company_id: Uuid,
+        goal: String,
+        status: TeamStatus,
+        manager_agent_id: Option<Uuid>,
+        created_by: Uuid,
+        created_at: DateTime<Utc>,
+        started_at: Option<DateTime<Utc>>,
+        completed_at: Option<DateTime<Utc>>,
+        budget_limit: Option<Decimal>,
+    ) -> Self {
+        Self {
+            id,
+            company_id,
+            goal,
+            status,
+            manager_agent_id,
+            created_by,
+            created_at,
+            started_at,
+            completed_at,
+            budget_limit,
+        }
+    }
 }
 
 #[cfg(test)]
