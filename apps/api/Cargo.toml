@@ -20,3 +20,4 @@ bcrypt = "0.15"
 jsonwebtoken = "9.2"
 async-trait = "0.1"
 rust_decimal = { version = "1.33", features = ["db-postgres", "serde"] }
+thiserror = "1.0"
