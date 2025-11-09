@@ -1267,9 +1267,9 @@ src/
 
 **Integration Tests:**
 
-- [ ] Create team via API → Verify in database
-- [ ] Register user → Login → Create team (full flow)
-- [ ] Authentication → Protected endpoint access
+- [x] Create team via API → Verify in database
+- [x] Register user → Login → Create team (full flow)
+- [x] Authentication → Protected endpoint access
 
 ---
 
